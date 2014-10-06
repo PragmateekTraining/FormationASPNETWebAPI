@@ -39,23 +39,25 @@ namespace Logging.Repository
             context = new LoggingContext(connectionString);
         }
 
-        public Log[] GetAllLogs()
+        public IEnumerable<Log> GetAllLogs()
         {
             return context.Logs.ToArray();
         }
 
         public IEnumerable<Log> GetLogsFrom(DateTime from)
         {
-            return context.Logs.Where(log => log.Timestamp >= from).ToArray();
+            return context.Logs.Where(log => log.Timestamp > from).ToArray();
         }
 
         public void Add(Level level, string message)
         {
+            DateTime now = DateTime.UtcNow;
+
             Log log = new Log
             {
                 Level = level,
                 Message = message,
-                Timestamp = DateTime.UtcNow
+                Timestamp = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, DateTimeKind.Utc)
             };
 
             context.Logs.Add(log);

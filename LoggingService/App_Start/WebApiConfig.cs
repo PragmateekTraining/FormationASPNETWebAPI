@@ -32,6 +32,12 @@ namespace Logging.Service
             );
 
             config.Routes.MapHttpRoute(
+                name: "GetLogsFrom",
+                routeTemplate: "api/logs/from/{from}",
+                defaults: new { controller = "Logs", action = "GetFrom" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "AddLog",
                 routeTemplate: "api/logs/add/{level}/{message}",
                 defaults: new { controller = "Logs", action = "Add" }

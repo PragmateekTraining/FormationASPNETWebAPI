@@ -23,11 +23,21 @@ namespace Logging.Service.Controllers
             this.connectionString = connectionString ?? "prodConnection";
         }
 
-        public Log[] GetAll()
+        public IEnumerable<Log> GetAll()
         {
             using (LogsRepository repository = new LogsRepository(connectionString))
             {
                 return repository.GetAllLogs();
+            }
+        }
+
+        public IEnumerable<Log> GetFrom(string from)
+        {
+            DateTime fromDate = DateTime.ParseExact(from, "yyyyMMddHHmmss", null);
+
+            using (LogsRepository repository = new LogsRepository(connectionString))
+            {
+                return repository.GetLogsFrom(fromDate);
             }
         }
 
