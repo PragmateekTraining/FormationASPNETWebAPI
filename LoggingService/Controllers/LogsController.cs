@@ -23,6 +23,14 @@ namespace Logging.Service.Controllers
             this.connectionString = connectionString ?? "prodConnection";
         }
 
+        public Log[] GetAll()
+        {
+            using (LogsRepository repository = new LogsRepository(connectionString))
+            {
+                return repository.GetAllLogs();
+            }
+        }
+
         public void Add(Level level, string message)
         {
             using (LogsRepository repository = new LogsRepository(connectionString))
