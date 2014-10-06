@@ -1,0 +1,8 @@
+FormationASPNetWebAPI.sdf
+FormationASPNetWebAPI.suo
+FormationASPNetWebAPI.v12.suo
+bin/
+obj/
+*.opensdf
+packages/
+SQLite.Interop.dll
