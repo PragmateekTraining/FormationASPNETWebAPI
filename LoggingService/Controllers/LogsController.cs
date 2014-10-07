@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Logging.Service.Controllers
@@ -31,8 +32,11 @@ namespace Logging.Service.Controllers
             }
         }
 
-        public IEnumerable<Log> GetFrom(string from)
+        public async Task<IEnumerable<Log>> GetFrom(string from)        
         {
+            // Simulate a delay
+            await Task.Delay(2000);
+
             DateTime fromDate = DateTime.ParseExact(from, "yyyyMMddHHmmss", null);
 
             using (LogsRepository repository = new LogsRepository(connectionString))
