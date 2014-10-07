@@ -6,6 +6,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <local:BinarySwitchConverter x:Key="inverseVisibilityConverter" ValueIfTrue="Collapsed" ValueIfFalse="Visible"></local:BinarySwitchConverter>
+        <local:BinarySwitchConverter x:Key="inverseValueConverter" ValueIfTrue="False" ValueIfFalse="True"></local:BinarySwitchConverter>
     </Window.Resources>
     <DockPanel>
         <DockPanel.DataContext>
@@ -30,9 +31,26 @@
         </StackPanel>
         <Grid>
             <DataGrid ItemsSource="{Binding Logs}"
-                  Margin="5">
+                      IsReadOnly="True"
+                      IsEnabled="{Binding IsRefreshing,Converter={StaticResource inverseValueConverter}}"
+                      Margin="5">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Level}" Value="INFO">
+                                <Setter Property="Background" Value="DarkTurquoise"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level}" Value="WARNING">
+                                <Setter Property="Background" Value="DarkOrange"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level}" Value="ERROR">
+                                <Setter Property="Background" Value="Tomato"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
             </DataGrid>
-            <mui:ModernProgressRing IsActive="{Binding IsRefreshing}"></mui:ModernProgressRing>
+            <mui:ModernProgressRing IsActive="{Binding IsRefreshing}" Foreground="Green"></mui:ModernProgressRing>
         </Grid>
     </DockPanel>
 </Window>

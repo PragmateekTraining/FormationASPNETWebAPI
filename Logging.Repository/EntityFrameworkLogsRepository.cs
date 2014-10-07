@@ -25,16 +25,16 @@ namespace Logging.Repository
         }
     }
 
-    public class LogsRepository : IDisposable
+    public class EntityFrameworkLogsRepository : ILogsRepository
     {
         private readonly LoggingContext context = null;
 
-        public LogsRepository(DbConnection connection)
+        public EntityFrameworkLogsRepository(DbConnection connection)
         {
             context = new LoggingContext(connection);
         }
 
-        public LogsRepository(string connectionString)
+        public EntityFrameworkLogsRepository(string connectionString)
         {
             context = new LoggingContext(connectionString);
         }

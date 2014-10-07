@@ -24,9 +24,14 @@ namespace Logging.Service.Controllers
             this.connectionString = connectionString ?? "prodConnection";
         }
 
+        private ILogsRepository NewRepository()
+        {
+            return LogsRepositoryFactory.New(connectionString);
+        }
+
         public IEnumerable<Log> GetAll()
         {
-            using (LogsRepository repository = new LogsRepository(connectionString))
+            using (var repository = NewRepository())
             {
                 return repository.GetAllLogs();
             }
@@ -39,7 +44,7 @@ namespace Logging.Service.Controllers
 
             DateTime fromDate = DateTime.ParseExact(from, "yyyyMMddHHmmss", null);
 
-            using (LogsRepository repository = new LogsRepository(connectionString))
+            using (var repository = NewRepository())
             {
                 return repository.GetLogsFrom(fromDate);
             }
@@ -47,7 +52,7 @@ namespace Logging.Service.Controllers
 
         public void Add(Level level, string message)
         {
-            using (LogsRepository repository = new LogsRepository(connectionString))
+            using (var repository = NewRepository())
             {
                 repository.Add(level, message);
             }
