@@ -1,8 +1,9 @@
-FormationASPNetWebAPI.sdf
-FormationASPNetWebAPI.suo
-FormationASPNetWebAPI.v12.suo
+FormationASPNETWebAPI.sdf
+FormationASPNETWebAPI.suo
+FormationASPNETWebAPI.v12.suo
 bin/
 obj/
+.nuget/
 *.opensdf
 packages/
 SQLite.Interop.dll
